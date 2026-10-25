@@ -8,19 +8,22 @@ class ProductPage(BasePage):
         add_to_basket_button.click()
 
     def should_be_success_message(self):
-        # Получаем название товара со страницы
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
-        # Получаем текст сообщения об успехе
         success_message = self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE).text
-        # Проверяем, что название товара есть в сообщении
         assert product_name in success_message, \
             f"Product name '{product_name}' is not in success message '{success_message}'"
 
     def should_be_basket_total_price(self):
-        # Получаем цену товара со страницы
         product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
-        # Получаем стоимость корзины
         basket_total = self.browser.find_element(*ProductPageLocators.BASKET_TOTAL_MESSAGE).text
-        # Проверяем, что цена товара есть в стоимости корзины
         assert product_price in basket_total, \
             f"Product price '{product_price}' is not in basket total '{basket_total}'"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_be_disappeared_success_message(self):
+        # Метод-проверка для исчезновения сообщения (по аналогии с should_not_be_success_message)
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is not disappeared"
