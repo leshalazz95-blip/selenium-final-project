@@ -24,6 +24,5 @@ class ProductPage(BasePage):
             "Success message is presented, but should not be"
 
     def should_be_disappeared_success_message(self):
-        # Метод-проверка для исчезновения сообщения (по аналогии с should_not_be_success_message)
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is not disappeared"
